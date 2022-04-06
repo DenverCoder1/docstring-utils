@@ -11,12 +11,12 @@ _ARG_DESCRIPTION_SUBREGEX = r"(?P<description>(?:.|\n)+?(?:\Z|\r?\n(?=[\S\r\n]))
 _ARG_TYPE_SUBREGEX = r"(?P<type>.+)"
 
 _GOOGLE_SECTION_REGEX = re.compile(
-    rf"^(?P<section_name>[\w ]+):\s*\r?\n(?P<body>.+?(?:\Z|(?=\r?\n?^\w)))",
+    r"^(?P<section_name>[\w ]+):\s*\r?\n(?P<body>.+?(?:\Z|(?=\r?\n?^\w)))",
     re.MULTILINE | re.DOTALL,
 )
 
 _NUMPY_SECTION_REGEX = re.compile(
-    rf"^(?P<section_name>\w+)\s*\r?\n-+\r?\n(?P<body>.+?(?:\Z|(?=\r?\n?^\w+\s*\r?\n-+)))",
+    r"^(?P<section_name>\w+)\s*\r?\n-+\r?\n(?P<body>.+?(?:\Z|(?=\r?\n?^\w+\s*\r?\n-+)))",
     re.MULTILINE | re.DOTALL,
 )
 
