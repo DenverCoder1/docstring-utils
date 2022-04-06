@@ -19,8 +19,8 @@ sys.path.append(os.path.abspath("extensions"))
 
 # -- Project information -----------------------------------------------------
 
-project = "docstring_utils"
-copyright = "2021, Jonah Lawrence"
+project = "docstring-utils"
+copyright = "2022, Jonah Lawrence"
 author = "Jonah Lawrence"
 
 

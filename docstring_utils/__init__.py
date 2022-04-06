@@ -1,5 +1,5 @@
 """
-docstring_utils: Parser for Numpy, Sphinx, and Google-style docstrings
+docstring-utils: Parser for Numpy, Sphinx, and Google-style docstrings
 """
 
 from .parser import parse_docstring

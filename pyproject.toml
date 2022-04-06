@@ -6,6 +6,6 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "docstring_utils"
+name = "docstring-utils"
 authors = [{name = "Jonah Lawrence", email = "jonah@freshidea.com"}]
 dynamic = ["version", "description"]

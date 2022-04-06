@@ -78,16 +78,16 @@ extras_require = {
 }
 
 setup(
-    name="docstring_utils",
+    name="docstring-utils",
     version=version(),
     author="Jonah Lawrence",
     author_email="jonah@freshidea.com",
     description="Parser for Numpy, Sphinx, and Google-style docstrings",
     long_description=long_description(),
     long_description_content_type="text/markdown",
-    url="https://github.com/DenverCoder1/docstring_utils",
+    url="https://github.com/DenverCoder1/docstring-utils",
     project_urls={
-        "Bug Tracker": "https://github.com/DenverCoder1/docstring_utils/issues",
+        "Bug Tracker": "https://github.com/DenverCoder1/docstring-utils/issues",
     },
     packages=["docstring_utils"],
     classifiers=[
