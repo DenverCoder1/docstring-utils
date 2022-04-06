@@ -10,20 +10,32 @@ _ARG_DESCRIPTION_SUBREGEX = r"(?P<description>(?:.|\n)+?(?:\Z|\r?\n(?=[\S\r\n]))
 
 _ARG_TYPE_SUBREGEX = r"(?P<type>.+)"
 
+_GOOGLE_SECTION_REGEX = re.compile(
+    rf"^(?P<section_name>[\w ]+):\s*\r?\n(?P<body>.+?(?:\Z|(?=\r?\n?^\w)))",
+    re.MULTILINE | re.DOTALL,
+)
+
+_NUMPY_SECTION_REGEX = re.compile(
+    rf"^(?P<section_name>\w+)\s*\r?\n-+\r?\n(?P<body>.+?(?:\Z|(?=\r?\n?^\w+\s*\r?\n-+)))",
+    re.MULTILINE | re.DOTALL,
+)
+
 _GOOGLE_DOCSTRING_ARG_REGEX = re.compile(
     rf"^{_ARG_NAME_SUBREGEX}[ \t]*(?:\({_ARG_TYPE_SUBREGEX}\))?[ \t]*:[ \t]*{_ARG_DESCRIPTION_SUBREGEX}",
-    re.MULTILINE
+    re.MULTILINE,
 )
 
 _SPHINX_DOCSTRING_ARG_REGEX = re.compile(
     rf"^:param {_ARG_NAME_SUBREGEX}:[ \t]+{_ARG_DESCRIPTION_SUBREGEX}[ \t]*(?::type [^\s:]+:[ \t]+{_ARG_TYPE_SUBREGEX})?",
-    re.MULTILINE
+    re.MULTILINE,
 )
 
 _NUMPY_DOCSTRING_ARG_REGEX = re.compile(
     rf"^{_ARG_NAME_SUBREGEX}(?:[ \t]*:)?(?:[ \t]+{_ARG_TYPE_SUBREGEX})?[ \t]*\r?\n[ \t]+{_ARG_DESCRIPTION_SUBREGEX}",
-    re.MULTILINE
+    re.MULTILINE,
 )
+
+_PARAMETER_SECTION_NAMES = ("Args", "Arguments", "Parameters", "Other Parameters")
 
 
 def parse_docstring(func: Callable, *, filter_args: bool = False) -> Dict[str, Any]:
@@ -52,12 +64,20 @@ def parse_docstring(func: Callable, *, filter_args: bool = False) -> Dict[str, A
             description = re.sub(r"\n\s*", " ", description_match.group(0)).strip()
 
         # Extract the arguments
-        # For Google-style, look only at the lines that are indented
-        section_lines = inspect.cleandoc("\n".join(line for line in docstring.splitlines() if line.startswith(("\t", "  "))))
+        google_arguments_section = "\n".join(
+            inspect.cleandoc(match.group("body"))
+            for match in _GOOGLE_SECTION_REGEX.finditer(docstring)
+            if match.group("section_name") in _PARAMETER_SECTION_NAMES
+        )
+        numpy_arguments_section = "\n".join(
+            match.group("body")
+            for match in _NUMPY_SECTION_REGEX.finditer(docstring)
+            if match.group("section_name") in _PARAMETER_SECTION_NAMES
+        )
         docstring_styles = [
-            _GOOGLE_DOCSTRING_ARG_REGEX.finditer(section_lines),
+            _GOOGLE_DOCSTRING_ARG_REGEX.finditer(google_arguments_section),
+            _NUMPY_DOCSTRING_ARG_REGEX.finditer(numpy_arguments_section),
             _SPHINX_DOCSTRING_ARG_REGEX.finditer(docstring),
-            _NUMPY_DOCSTRING_ARG_REGEX.finditer(docstring),
         ]
 
         # choose the style with the largest number of arguments matched

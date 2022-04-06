@@ -1,9 +1,9 @@
-def short_description():
+def sphinx_short_description():
     """Example of a Sphinx-style docstring."""
     pass
 
 
-def extended_description():
+def sphinx_extended_description():
     """Example of a Sphinx-style docstring.
 
     This is a longer description of what the function or class does. It may
@@ -12,7 +12,7 @@ def extended_description():
     pass
 
 
-def arguments(arg1):
+def sphinx_argument(arg1):
     """Example of a Sphinx-style docstring.
 
     :param arg1: Description of `arg1`.
@@ -20,7 +20,16 @@ def arguments(arg1):
     pass
 
 
-def arguments_with_types(arg1: str, arg2: int):
+def sphinx_arguments(arg1, arg2):
+    """Example of a Sphinx-style docstring.
+
+    :param arg1: Description of `arg1`.
+    :param arg2: Description of `arg2`.
+    """
+    pass
+
+
+def sphinx_arguments_with_types(arg1: str, arg2: int):
     """Example of a Sphinx-style docstring.
 
     :param arg1: Description of `arg1`.
@@ -31,7 +40,7 @@ def arguments_with_types(arg1: str, arg2: int):
     pass
 
 
-def return_value(arg1: str) -> int:
+def sphinx_return_value(arg1: str) -> int:
     """Example of a Sphinx-style docstring.
 
     :param arg1: Description of `arg1`.
@@ -40,3 +49,16 @@ def return_value(arg1: str) -> int:
     :rtype: :class:`int`
     """
     return 0
+
+
+def sphinx_multiline_descriptions(arg1: str, arg2):
+    """Example of a Sphinx-style docstring.
+
+    :param arg1: Description of `arg1`.
+        This is a multi-line description.
+    :type arg1: :class:`str`
+    :param arg2: Description of `arg2`.
+
+        This is a multi-line description. There can be blank lines.
+    """
+    pass
