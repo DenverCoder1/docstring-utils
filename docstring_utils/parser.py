@@ -1,7 +1,9 @@
 import inspect
 import re
 from functools import cached_property
-from typing import Any, Callable, Dict, Union
+from typing import Any, Callable, Dict
+
+from .parsed_docstring import ParsedDocstring
 from .utils import find
 
 _SHORT_DESCRIPTION_REGEX = re.compile(r"\A(?:.|\n)+?(?=\Z|\r?\n\r?\n)", re.MULTILINE)
@@ -66,25 +68,29 @@ class _DocstringParser:
     @cached_property
     def parsed_docstring(
         self,
-    ) -> Dict[str, Union[str, Dict[str, str], Dict[str, Dict[str, str]]]]:
+    ) -> ParsedDocstring:
         """Parses the docstring of a function into a dictionary
 
         Returns
         --------
-        :class:`Dict[str, Any]`
-            The parsed docstring including the function description and
-            descriptions of arguments
+        :class:`ParsedDocstring`
+            The parsed docstring
         """
-        # Don't parse if the docstring is empty
-        if not self._docstring:
-            return {"description": "", "args": {}}
-
-        # Parse the docstring
-        return {
-            "description": self._parsed_short_description,
-            "args": self._parsed_arguments,
-            "return": self._parsed_return,
+        data = {
+            "description": "",
+            "args": {},
+            "return": {"type": "", "description": ""},
         }
+
+        # Parse the docstring only if it is not empty
+        if self._docstring:
+            data = {
+                "description": self._parsed_short_description,
+                "args": self._parsed_arguments,
+                "return": self._parsed_return,
+            }
+
+        return ParsedDocstring(self._docstring, data)
 
     @cached_property
     def _parsed_short_description(self) -> str:
@@ -179,7 +185,7 @@ class _DocstringParser:
 
     @cached_property
     def _parsed_sections_google(self) -> Dict[str, str]:
-        """Parses the docstring into sections using Google style.
+        """Parses the docstring into sections using Google style
 
         Returns
         --------
@@ -193,7 +199,7 @@ class _DocstringParser:
 
     @cached_property
     def _parsed_sections_numpy(self) -> Dict[str, str]:
-        """Parses the docstring into sections using Numpy style.
+        """Parses the docstring into sections using Numpy style
 
         Returns
         --------
@@ -245,20 +251,19 @@ class _DocstringParser:
 
 def parse_docstring(
     func: Callable[..., Any], *, filter_args: bool = False
-) -> Dict[str, Any]:
-    """Parses the docstring of a function into a dictionary.
+) -> ParsedDocstring:
+    """Parses the docstring of a function into a dictionary
 
     Parameters
     ------------
     func: Callable[..., Any]
-        The function to parse the docstring of.
+        The function to parse the docstring of
     filter_args: :class:`bool`
-        Whether to filter out arguments that are not in the function signature.
+        Whether to filter out arguments that are not in the function signature
 
     Returns
     --------
-    :class:`Dict[str, Any]`
-        The parsed docstring including the function description and
-        descriptions of arguments.
+    :class:`ParsedDocstring`
+        The parsed docstring
     """
     return _DocstringParser(func, filter_args=filter_args).parsed_docstring
