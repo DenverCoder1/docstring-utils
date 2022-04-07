@@ -1,35 +1,54 @@
-def sphinx_short_description():
+def sample_sphinx_short_description():
     """Example of a Sphinx-style docstring."""
-    pass
+    return {
+        "description": "Example of a Sphinx-style docstring.",
+        "args": {},
+        "return": {"type": "", "description": ""},
+    }
 
 
-def sphinx_extended_description():
+def sample_sphinx_extended_description():
     """Example of a Sphinx-style docstring.
 
     This is a longer description of what the function or class does. It may
     span multiple lines.
     """
-    pass
+    return {
+        "description": "Example of a Sphinx-style docstring.",
+        "args": {},
+        "return": {"type": "", "description": ""},
+    }
 
 
-def sphinx_argument(arg1):
+def sample_sphinx_argument(arg1=None):
     """Example of a Sphinx-style docstring.
 
     :param arg1: Description of `arg1`.
     """
-    pass
+    return {
+        "description": "Example of a Sphinx-style docstring.",
+        "args": {"arg1": {"description": "Description of `arg1`.", "type": ""}},
+        "return": {"type": "", "description": ""},
+    }
 
 
-def sphinx_arguments(arg1, arg2):
+def sample_sphinx_arguments(arg1=None, arg2=None):
     """Example of a Sphinx-style docstring.
 
     :param arg1: Description of `arg1`.
     :param arg2: Description of `arg2`.
     """
-    pass
+    return {
+        "description": "Example of a Sphinx-style docstring.",
+        "args": {
+            "arg1": {"description": "Description of `arg1`.", "type": ""},
+            "arg2": {"description": "Description of `arg2`.", "type": ""},
+        },
+        "return": {"type": "", "description": ""},
+    }
 
 
-def sphinx_arguments_with_types(arg1: str, arg2: int):
+def sample_sphinx_arguments_with_types(arg1=None, arg2=None):
     """Example of a Sphinx-style docstring.
 
     :param arg1: Description of `arg1`.
@@ -37,10 +56,17 @@ def sphinx_arguments_with_types(arg1: str, arg2: int):
     :param arg2: Description of `arg2`.
     :type arg2: :class:`int`
     """
-    pass
+    return {
+        "description": "Example of a Sphinx-style docstring.",
+        "args": {
+            "arg1": {"description": "Description of `arg1`.", "type": ":class:`str`"},
+            "arg2": {"description": "Description of `arg2`.", "type": ":class:`int`"},
+        },
+        "return": {"type": "", "description": ""},
+    }
 
 
-def sphinx_return_value(arg1: str) -> int:
+def sample_sphinx_return_value(arg1=None):
     """Example of a Sphinx-style docstring.
 
     :param arg1: Description of `arg1`.
@@ -48,10 +74,16 @@ def sphinx_return_value(arg1: str) -> int:
     :return: Description of `return` value.
     :rtype: :class:`int`
     """
-    return 0
+    return {
+        "description": "Example of a Sphinx-style docstring.",
+        "args": {
+            "arg1": {"description": "Description of `arg1`.", "type": ":class:`str`"}
+        },
+        "return": {"type": "", "description": ""},
+    }
 
 
-def sphinx_multiline_descriptions(arg1: str, arg2):
+def sample_sphinx_multiline_descriptions(arg1=None, arg2=None):
     """Example of a Sphinx-style docstring.
 
     :param arg1: Description of `arg1`.
@@ -61,4 +93,14 @@ def sphinx_multiline_descriptions(arg1: str, arg2):
 
         This is a multi-line description. There can be blank lines.
     """
-    pass
+    return {
+        "description": "Example of a Sphinx-style docstring.",
+        "args": {
+            "arg1": {
+                "description": "Description of `arg1`. This is a multi-line description.",
+                "type": ":class:`str`",
+            },
+            "arg2": {"description": "Description of `arg2`.", "type": ""},
+        },
+        "return": {"type": "", "description": ""},
+    }
