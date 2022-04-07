@@ -9,7 +9,7 @@ Simple parser for Numpy, Sphinx, and Google-style docstrings
 
 ## 📥 Installation
 
-``pip install -U docstring-utils`` 
+`pip install -U docstring-utils`
 
 **Requirements:** `Python 3.7+`
 
@@ -32,40 +32,31 @@ def example(arg1: str, arg2: int) -> int:
     """
     return 0
 
-parse_docstring(example, filter_args=True)
+result = parse_docstring(example, filter_args=True)
 
-# Output:
-{
-    "description": "Example of a Google-style docstring.",
-    "args": {
-        "arg1": {
-            "description": "Description of `arg1`.",
-            "type": "str",
-        },
-        "arg2": {
-            "description": "Description of `arg2`.",
-            "type": "int",
-        },
-    },
-    "return": {
-        "description": "Description of `return` value.",
-        "type": "int",
-    },
-}
+print(result.description)  # "Example of a Google-style docstring."
+
+args = result.args.values()
+print(args[0].name)  # "arg1"
+print(args[0].description)  # "Description of `arg1`."
+print(args[0].type)  # "str"
+
+print(result.return_value.type)  # "int"
+print(result.return_value.description)  # "Description of `return` value."
 ```
 
 ## 🧰 Development
 
 ### Running tests
 
-1. Install `tox` with the command ``pip install -U tox``
+1. Install `tox` with the command `pip install -U tox`
 
-2. Run tests with the command ``tox``
+2. Run tests with the command `tox`
 
 ### Linting
 
 Run the following command to lint with flake8
 
-``python setup.py lint``
+`python setup.py lint`
 
 (Note: The exact command may vary depending on your Python version and environment)

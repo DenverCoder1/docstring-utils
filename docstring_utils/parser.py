@@ -76,7 +76,11 @@ class _DocstringParser:
         :class:`ParsedDocstring`
             The parsed docstring
         """
-        data = {}
+        data = {
+            "description": "",
+            "args": {},
+            "return": {"type": "", "description": ""},
+        }
 
         # Parse the docstring only if it is not empty
         if self._docstring:
@@ -169,7 +173,10 @@ class _DocstringParser:
         matched_style = find(lambda style: style is not None, docstring_return_styles)
 
         if not matched_style:
-            return {}
+            return {
+                "type": "",
+                "description": "",
+            }
 
         return {
             "description": matched_style.group("description").strip(),

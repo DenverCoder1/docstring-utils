@@ -17,6 +17,9 @@ class ParsedReturnValue:
     type: str
     description: str
 
+    def __repr__(self) -> str:
+        return f"<{self.__class__.__name__}(type={self.type!r}, description={self.description!r})>"
+
 
 @dataclass
 class ParsedArgument:
@@ -35,6 +38,9 @@ class ParsedArgument:
     name: str
     type: str
     description: str
+
+    def __repr__(self) -> str:
+        return f"<{self.__class__.__name__}(name={self.name!r}, type={self.type!r}, description={self.description!r})>"
 
 
 class ParsedDocstring:
@@ -78,8 +84,8 @@ class ParsedDocstring:
     def return_value(self) -> ParsedReturnValue:
         """:class:`ParsedReturnValue`: The parsed return value."""
         return ParsedReturnValue(
-            type=self._parsed_docstring["return_value"]["type"],
-            description=self._parsed_docstring["return_value"]["description"],
+            type=self._parsed_docstring["return"]["type"],
+            description=self._parsed_docstring["return"]["description"],
         )
 
     def __getattr__(self, name: str) -> Any:
@@ -134,4 +140,4 @@ class ParsedDocstring:
         str
             The representation of the parsed docstring.
         """
-        return f"<{self.__class__.__name__}({self._parsed_docstring!r})>"
+        return f"<{self.__class__.__name__}(description='{self.description}', args={self.args}, return_value={self.return_value})>"
