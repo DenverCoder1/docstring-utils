@@ -1,6 +1,7 @@
 # /usr/bin/env python
 import os
 import re
+from typing import List
 from setuptools import setup
 from setuptools.command.test import test as Command
 
@@ -42,9 +43,11 @@ class LintCommand(Command):
 def version():
     version = ""
     with open("docstring_utils/__init__.py") as f:
-        version = re.search(
+        version_match = re.search(
             r'^__version__\s*=\s*[\'"]([^\'"]*)[\'"]', f.read(), re.MULTILINE
-        ).group(1)
+        )
+        assert version_match, "Could not find version string"
+        version = version_match.group(1)
     if not version:
         raise RuntimeError("version is not set")
     return version
@@ -58,7 +61,7 @@ def long_description():
         return fh.read()
 
 
-def requirements():
+def requirements() -> List[str]:
     # check if requirements.txt exists
     if not os.path.exists("requirements.txt"):
         return []

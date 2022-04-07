@@ -46,17 +46,13 @@ def _format_failure_message(
     """
     message = f"Expected {expected_args} but got {actual_args}"
     message = (
-        "=" * len(message)
-        + "\n"
-        + f"Testing {func.__name__}\n"
-        + f'"""{func.__doc__}"""\n'
-        + f"{json.dumps(parsed_docstring, indent=4)}\n"
-        + "!" * len(message)
-        + "\n"
-        + message
-        + "\n"
-        + "!" * len(message)
-        + "\n"
+        f"{'=' * len(message)}\n"
+        f"Testing {func.__name__}\n"
+        f'"""{func.__doc__}"""\n'
+        f"{json.dumps(parsed_docstring, indent=4)}\n"
+        f"{'!' * len(message)}\n"
+        f"{message}\n"
+        f"{'!' * len(message)}\n"
     )
     return message
 
