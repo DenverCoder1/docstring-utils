@@ -72,10 +72,9 @@ def requirements() -> List[str]:
 extras_require = {
     "docs": [
         "sphinx>=4.4.0,<5",
-        "enum-tools>=0.9.0.post1,<1",
         "sphinx-toolbox>=2.18.0,<3",
         "sphinxcontrib_trio>=1.1.2,<2",
-        "sphinx-rtd-theme>=1.0.0,<2",
+        "sphinx_book_theme==0.2.0",
         "sphinxext-opengraph>=0.6.2,<1",
     ],
 }
