@@ -36,17 +36,21 @@ parse_docstring(example, filter_args=True)
 
 # Output:
 {
-    'description': 'Example of a Google-style docstring.',
-    'args': {
-        'arg1': {
-            'description': 'Description of `arg1`.',
-            'type': 'str'
+    "description": "Example of a Google-style docstring.",
+    "args": {
+        "arg1": {
+            "description": "Description of `arg1`.",
+            "type": "str",
         },
-        'arg2': {
-            'description': 'Description of `arg2`.',
-            'type': 'int'
-        }
-    }
+        "arg2": {
+            "description": "Description of `arg2`.",
+            "type": "int",
+        },
+    },
+    "return": {
+        "description": "Description of `return` value.",
+        "type": "int",
+    },
 }
 ```
 
